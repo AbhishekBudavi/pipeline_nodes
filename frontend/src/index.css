@@ -1,0 +1,367 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #0f1419;
+  color: #e0e0e0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* ===== ROOT APP LAYOUT ===== */
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #0f1419;
+}
+
+/* ===== TOOLBAR - Dark Modern Style ===== */
+.pipeline-toolbar {
+  background: linear-gradient(to bottom, #1a1f2e, #151a27);
+  border-bottom: 1px solid #2a3142;
+  padding: 16px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+}
+
+.pipeline-toolbar h3 {
+  margin: 0 0 12px 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: #a0aac0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.node-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ===== DRAGGABLE NODE BUTTONS ===== */
+.draggable-node-btn {
+  padding: 8px 14px;
+  background: linear-gradient(135deg, #2a3142, #252d3a);
+  border: 1.5px solid #3a4251;
+  border-radius: 6px;
+  cursor: grab;
+  font-size: 12px;
+  font-weight: 600;
+  color: #b0b8c4;
+  transition: all 0.2s ease;
+  user-select: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.draggable-node-btn:hover {
+  background: linear-gradient(135deg, #3a4a63, #324155);
+  border-color: #5a7acc;
+  color: #6fa3ff;
+  box-shadow: 0 4px 12px rgba(111, 163, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.draggable-node-btn:active {
+  cursor: grabbing;
+  transform: translateY(0);
+}
+
+/* ===== REACTFLOW STYLES ===== */
+.react-flow__container {
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #0f1419 !important;
+  flex: 1;
+  overflow: hidden;
+}
+
+.react-flow__pane {
+  background-color: #0f1419 !important;
+}
+
+.react-flow__viewport {
+  background-color: #0f1419 !important;
+}
+
+/* Background Grid */
+.react-flow__background {
+  background-color: #0f1419 !important;
+}
+
+.react-flow__background circle {
+  fill: #2a3142 !important;
+}
+
+/* Mini Map */
+.react-flow__minimap {
+  background-color: #1a1f2e !important;
+  border: 1px solid #2a3142 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Controls */
+.react-flow__controls {
+  left: 20px !important;
+  bottom: 20px !important;
+  gap: 8px !important;
+}
+
+.react-flow__controls button {
+  background-color: #2a3142 !important;
+  border: 1.5px solid #3a4251 !important;
+  border-radius: 6px !important;
+  width: 36px !important;
+  height: 36px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+  color: #b0b8c4 !important;
+}
+
+.react-flow__controls button:hover {
+  background-color: #3a525c !important;
+  border-color: #5a8adc !important;
+  color: #6fa3ff !important;
+  box-shadow: 0 4px 12px rgba(111, 163, 255, 0.2) !important;
+}
+
+/* ===== NODE STYLES ===== */
+.react-flow__node {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+}
+
+.react-flow__node:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.react-flow__node.selected {
+  box-shadow: 0 0 0 2px #0f1419, 0 0 0 4px #5a8adc;
+}
+
+/* ===== HANDLE STYLES ===== */
+.react-flow__handle {
+  width: 14px;
+  height: 14px;
+  background-color: #2a3142;
+  border: 2.5px solid #6fa3ff;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 8px rgba(111, 163, 255, 0.3);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointerEvents: auto;
+  zIndex: 100;
+}
+
+.react-flow__handle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  cursor: crosshair;
+}
+
+.react-flow__handle:hover {
+  background-color: #6fa3ff;
+  transform: translateY(-50%) scale(1.2);
+  box-shadow: 0 0 12px rgba(111, 163, 255, 0.6);
+}
+
+.react-flow__handle.connectable {
+  cursor: crosshair;
+}
+
+/* Different colors for target vs source */
+.react-flow__handle.target {
+  left: -7px;
+  border-color: #50d890;
+  box-shadow: 0 0 8px rgba(80, 216, 144, 0.3);
+}
+
+.react-flow__handle.target:hover {
+  background-color: #50d890;
+  box-shadow: 0 0 12px rgba(80, 216, 144, 0.6);
+}
+
+.react-flow__handle.source {
+  right: -7px;
+  border-color: #ff9f53;
+  box-shadow: 0 0 8px rgba(255, 159, 83, 0.3);
+}
+
+.react-flow__handle.source:hover {
+  background-color: #ff9f53;
+  box-shadow: 0 0 12px rgba(255, 159, 83, 0.6);
+}
+
+/* ===== EDGE STYLES ===== */
+.react-flow__edge {
+  stroke-width: 2;
+}
+
+.react-flow__edge-path {
+  stroke: #5a8adc;
+  stroke-opacity: 0.6;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: #6fa3ff;
+  stroke-width: 3;
+  stroke-opacity: 1;
+  filter: drop-shadow(0 0 4px rgba(111, 163, 255, 0.4));
+}
+
+.react-flow__connection-path {
+  stroke: #6fa3ff !important;
+  stroke-width: 2 !important;
+}
+
+/* ===== SUBMIT SECTION ===== */
+.submit-container {
+  background: linear-gradient(to top, #1a1f2e, #151a27);
+  border-top: 1px solid #2a3142;
+  padding: 20px;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+}
+
+.submit-button {
+  background: linear-gradient(135deg, #6fa3ff, #5a8adc);
+  color: #ffffff;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(111, 163, 255, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: 100%;
+  max-width: 200px;
+  display: block;
+  margin: 0 auto;
+}
+
+.submit-button:hover {
+  background: linear-gradient(135deg, #7eb5ff, #6a95d0);
+  box-shadow: 0 6px 20px rgba(111, 163, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(111, 163, 255, 0.3);
+}
+
+.submit-button:disabled {
+  background: linear-gradient(135deg, #3a4a63, #2a3a50);
+  color: #7a8a9a;
+  cursor: not-allowed;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  transform: none;
+}
+
+/* ===== FORM ELEMENTS ===== */
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+  padding: 6px 10px;
+  font-size: 12px;
+  background-color: #1a1f2e;
+  border: 1px solid #2a3142;
+  border-radius: 4px;
+  font-family: inherit;
+  color: #e0e0e0;
+  transition: all 0.2s ease;
+}
+
+input[type="text"]::placeholder,
+textarea::placeholder {
+  color: #6a7a8a;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #6fa3ff;
+  background-color: #252d3a;
+  box-shadow: 0 0 8px rgba(111, 163, 255, 0.2);
+}
+
+textarea {
+  font-family: 'Monaco', 'Courier New', monospace;
+  background-color: #1a1f2e;
+  color: #e0e0e0;
+}
+
+select {
+  background-color: #1a1f2e;
+  color: #e0e0e0;
+  cursor: pointer;
+}
+
+select option {
+  background-color: #1a1f2e;
+  color: #e0e0e0;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #b0b8c4;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* ===== SCROLLBAR STYLING ===== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1f2e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3a4a63;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4a5a73;
+}
