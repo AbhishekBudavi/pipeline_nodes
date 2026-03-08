@@ -49,7 +49,7 @@ export const SubmitButton = () => {
 
         try {
             // Send pipeline data to backend
-            const response = await fetch('https://pipelinenodes-production.up.railway.app/', {
+            const response = await fetch('http://localhost:8000/pipelines/parse' || 'https://pipelinenodes-production.up.railway.app/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
