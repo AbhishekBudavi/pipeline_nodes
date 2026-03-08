@@ -1,5 +1,3 @@
-// llmNode.js
-
 import { BaseNode } from './BaseNode';
 
 export const LLMNode = ({ id, data }) => {
@@ -12,8 +10,8 @@ export const LLMNode = ({ id, data }) => {
       width={200}
       height={100}
     >
-      <div style={{ fontSize: '11px', color: '#a0a8b4' }}>
-        🤖 System & Prompt inputs
+      <div className="text-xs text-text-tertiary">
+        System & Prompt inputs
       </div>
     </BaseNode>
   );

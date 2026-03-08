@@ -1,5 +1,3 @@
-// outputNode.js
-
 import { useState } from 'react';
 import { BaseNode } from './BaseNode';
 
@@ -23,19 +21,19 @@ export const OutputNode = ({ id, data }) => {
       width={200}
       height={110}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <label style={{ fontSize: '11px' }}>
+      <div className="flex flex-col gap-2">
+        <label className="text-xs">
           Name:
           <input 
             type="text" 
             value={currName} 
             onChange={handleNameChange}
-            style={{ marginLeft: '6px', padding: '4px 6px', width: '90px' }}
+            className="ml-1.5 px-1.5 py-1 w-[90px] bg-dark-card text-text-secondary border border-dark-border rounded focus:outline-none focus:border-accent-blue"
           />
         </label>
-        <label style={{ fontSize: '11px' }}>
+        <label className="text-xs">
           Type:
-          <select value={outputType} onChange={handleTypeChange} style={{ marginLeft: '6px', padding: '4px 6px', width: '95px' }}>
+          <select value={outputType} onChange={handleTypeChange} className="ml-1.5 px-1.5 py-1 w-[95px] bg-dark-card text-text-secondary border border-dark-border rounded focus:outline-none focus:border-accent-blue cursor-pointer">
             <option value="Text">Text</option>
             <option value="File">Image</option>
           </select>

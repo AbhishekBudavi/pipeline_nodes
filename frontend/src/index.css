@@ -57,6 +57,29 @@ code {
   gap: 8px;
 }
 
+/* ===== HELP BAR ===== */
+.help-bar {
+  background-color: #252d3a;
+  border-bottom: 1px solid #2a3142;
+  padding: 8px 20px;
+  font-size: 12px;
+  color: #b0b8c4;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+}
+
+.help-text {
+  margin: 0;
+}
+
+.help-text strong {
+  color: #6fa3ff;
+  font-weight: 700;
+}
+
 /* ===== DRAGGABLE NODE BUTTONS ===== */
 .draggable-node-btn {
   padding: 8px 14px;
@@ -92,14 +115,26 @@ code {
   background-color: #0f1419 !important;
   flex: 1;
   overflow: hidden;
+  position: relative;
 }
 
 .react-flow__pane {
   background-color: #0f1419 !important;
+  transform: translate(0, 0) scale(1);
 }
 
 .react-flow__viewport {
   background-color: #0f1419 !important;
+  overflow: visible !important;
+}
+
+/* Ensure proper z-index stacking */
+.react-flow__edges {
+  z-index: 1 !important;
+}
+
+.react-flow__nodes {
+  z-index: 2 !important;
 }
 
 /* Background Grid */
@@ -152,6 +187,12 @@ code {
 .react-flow__node {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   border-radius: 8px;
+  pointer-events: auto !important;
+  z-index: 100 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  overflow: visible !important;
 }
 
 .react-flow__node:hover {
@@ -174,8 +215,8 @@ code {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  pointerEvents: auto;
-  zIndex: 100;
+  pointer-events: auto;
+  z-index: 100;
 }
 
 .react-flow__handle::after {
@@ -239,9 +280,43 @@ code {
   filter: drop-shadow(0 0 4px rgba(111, 163, 255, 0.4));
 }
 
+/* ===== CONNECTION POINTER EVENTS FIX ===== */
 .react-flow__connection-path {
   stroke: #6fa3ff !important;
   stroke-width: 2 !important;
+  pointer-events: none !important;
+}
+
+/* Disable pointer events on entire connection layer */
+.react-flow__connection {
+  pointer-events: none !important;
+}
+
+/* Ensure SVG doesn't block interactions */
+.react-flow__renderer {
+  pointer-events: none;
+}
+
+.react-flow__renderer svg {
+  pointer-events: none;
+}
+
+/* Handles must be interactive */
+.react-flow__nodesselection {
+  pointer-events: auto;
+}
+
+.react-flow__handle {
+  pointer-events: auto !important;
+}
+
+/* Edges should not block node interaction */
+.react-flow__edges {
+  pointer-events: none;
+}
+
+.react-flow__edge {
+  pointer-events: none;
 }
 
 /* ===== SUBMIT SECTION ===== */

@@ -86,4 +86,22 @@ export const useStore = create((set, get) => ({
         }),
       });
     },
+    deleteNode: (nodeId) => {
+      // Delete the node
+      const updatedNodes = get().nodes.filter(node => node.id !== nodeId);
+      // Delete all edges connected to this node
+      const updatedEdges = get().edges.filter(edge => 
+        edge.source !== nodeId && edge.target !== nodeId
+      );
+      set({
+        nodes: updatedNodes,
+        edges: updatedEdges,
+      });
+    },
+    deleteEdge: (edgeId) => {
+      // Delete edge by ID
+      set({
+        edges: get().edges.filter(edge => edge.id !== edgeId),
+      });
+    },
   }));

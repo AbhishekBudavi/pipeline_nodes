@@ -6,15 +6,15 @@ import { useState, useRef, useCallback } from 'react';
 import ReactFlow, { Controls, Background, MiniMap } from 'reactflow';
 import { useStore } from './store';
 import { shallow } from 'zustand/shallow';
-import { InputNode } from './nodes/inputNode';
-import { LLMNode } from './nodes/llmNode';
-import { OutputNode } from './nodes/outputNode';
-import { TextNode } from './nodes/textNode';
-import { MathNode } from './nodes/mathNode';
-import { FilterNode } from './nodes/filterNode';
-import { DelayNode } from './nodes/delayNode';
-import { LoggerNode } from './nodes/loggerNode';
-import { ApiNode } from './nodes/apiNode';
+import { InputNode } from '../nodes/inputNode';
+import { LLMNode } from '../nodes/llmNode';
+import { OutputNode } from '../nodes/outputNode';
+import { TextNode } from '../nodes/textNode';
+import { MathNode } from '../nodes/mathNode';
+import { FilterNode } from '../nodes/filterNode';
+import { DelayNode } from '../nodes/delayNode';
+import { LoggerNode } from '../nodes/loggerNode';
+import { ApiNode } from '../nodes/apiNode';
 
 import 'reactflow/dist/style.css';
 
@@ -40,6 +40,8 @@ const selector = (state) => ({
   onNodesChange: state.onNodesChange,
   onEdgesChange: state.onEdgesChange,
   onConnect: state.onConnect,
+  deleteNode: state.deleteNode,
+  deleteEdge: state.deleteEdge,
 });
 
 export const PipelineUI = () => {
@@ -52,7 +54,9 @@ export const PipelineUI = () => {
       addNode,
       onNodesChange,
       onEdgesChange,
-      onConnect
+      onConnect,
+      deleteNode,
+      deleteEdge,
     } = useStore(selector, shallow);
 
     const getInitNodeData = (nodeID, type) => {
@@ -100,7 +104,7 @@ export const PipelineUI = () => {
             addNode(newNode);
           }
         },
-        [reactFlowInstance]
+        [reactFlowInstance, getNodeID, addNode]
     );
 
     const onDragOver = useCallback((event) => {
@@ -108,8 +112,34 @@ export const PipelineUI = () => {
         event.dataTransfer.dropEffect = 'move';
     }, []);
 
+    // Handle keyboard deletion (Delete or Backspace key)
+    const handleKeyDown = useCallback((event) => {
+      // Only handle Delete or Backspace
+      if (event.key !== 'Delete' && event.key !== 'Backspace') return;
+      if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') return; // Don't delete if user is typing
+      
+      // Delete selected nodes
+      nodes.forEach(node => {
+        if (node.selected) {
+          deleteNode(node.id);
+        }
+      });
+      
+      // Delete selected edges
+      edges.forEach(edge => {
+        if (edge.selected) {
+          deleteEdge(edge.id);
+        }
+      });
+    }, [nodes, edges, deleteNode, deleteEdge]);
+
     return (
-        <div ref={reactFlowWrapper} style={{ flex: 1, width: '100%', position: 'relative' }}>
+        <div 
+          ref={reactFlowWrapper} 
+          className="flex-1 w-full relative overflow-hidden"
+          onKeyDown={handleKeyDown}
+          tabIndex={0}
+        >
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
@@ -126,7 +156,7 @@ export const PipelineUI = () => {
                 fitView
             >
                 <Background color="#3a4a63" gap={gridSize} size={1.5} />
-                <Controls />
+                <Controls  />
                 <MiniMap
                   nodeColor="#2a3142"
                   maskColor="#0f141990"

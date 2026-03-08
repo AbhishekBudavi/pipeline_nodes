@@ -1,6 +1,3 @@
-// delayNode.js
-// A node that introduces a delay in the pipeline
-
 import { useState } from 'react';
 import { BaseNode } from './BaseNode';
 
@@ -16,14 +13,14 @@ export const DelayNode = ({ id, data }) => {
       width={200}
       height={100}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <label style={{ fontSize: '11px' }}>
+      <div className="flex flex-col gap-2">
+        <label className="text-xs">
           Delay (ms):
           <input 
             type="number" 
             value={delayMs}
             onChange={(e) => setDelayMs(parseInt(e.target.value))}
-            style={{ marginLeft: '6px', padding: '4px 6px', width: '80px' }}
+            className="ml-1.5 px-1.5 py-1 w-20 bg-dark-card text-text-secondary border border-dark-border rounded focus:outline-none focus:border-accent-blue"
             min="0"
             step="100"
           />

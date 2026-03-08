@@ -1,27 +1,24 @@
-// BaseNode.js
-// A reusable base component for all node types
-// Handles layout, styling, and handles management
-
 import { Handle, Position } from 'reactflow';
 
 export const BaseNode = ({ 
   id, 
   title, 
   children,
-  inputs = [],    // Array of input handle IDs
-  outputs = [],   // Array of output handle IDs
+  inputs = [],    
+  outputs = [],   
   width = 200,
   height = 120,
-  nodeType = 'default'  // For styling purposes
+  nodeType = 'default' 
 }) => {
   
-  // Calculate spacing for multiple handles
   const inputSpacing = inputs.length > 1 ? 100 / (inputs.length + 1) : 50;
   const outputSpacing = outputs.length > 1 ? 100 / (outputs.length + 1) : 50;
 
   return (
-    <div style={styles.container(width, height)}>
-      {/* Render input handles on the left */}
+    <div 
+      style={{ width, height }}
+      className="border-2 border-[#3a4a63] rounded-lg bg-dark-card flex flex-col shadow-lg relative overflow-visible pointer-events-auto z-50"
+    >
       {inputs.map((inputId, index) => (
         <Handle
           key={`input-${inputId}`}
@@ -37,7 +34,6 @@ export const BaseNode = ({
         />
       ))}
 
-      {/* Render output handles on the right */}
       {outputs.map((outputId, index) => (
         <Handle
           key={`output-${outputId}`}
@@ -53,20 +49,18 @@ export const BaseNode = ({
         />
       ))}
 
-      {/* Header with title */}
-      <div style={styles.header}>
-        <span style={styles.title}>{title}</span>
+      <div className="px-3 py-2.5 border-b-2 border-[#2a3542] bg-gradient-to-b from-[#252d3a] to-[#1f2530] font-bold text-sm text-text-secondary capitalize tracking-wide pointer-events-auto">
+        <span className="text-[#d0d8e0] font-bold">{title}</span>
       </div>
 
-      {/* Body content - where custom node UI goes */}
-      <div style={styles.body}>
+      
+      <div className="flex-1 px-3 py-2.5 overflow-auto text-sm text-text-tertiary pointer-events-auto">
         {children}
       </div>
     </div>
   );
 };
 
-// Dark theme node styling
 const styles = {
   container: (width, height) => ({
     width,

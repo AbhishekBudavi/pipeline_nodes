@@ -1,11 +1,13 @@
-import { PipelineToolbar } from './toolbar';
-import { PipelineUI } from './ui';
-import { SubmitButton } from './submit';
+import { PipelineToolbar } from './components/toolbar';
+import { PipelineUI } from './components/ui';
+import { SubmitButton } from './components/submit';
+import { HelpBar } from './components/helpBar';
 
 function App() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+    <div className="flex flex-col h-screen w-full">
       <PipelineToolbar />
+      <HelpBar />
       <PipelineUI />
       <SubmitButton />
     </div>

@@ -1,6 +1,3 @@
-// mathNode.js
-// A node that performs mathematical operations
-
 import { useState } from 'react';
 import { BaseNode } from './BaseNode';
 
@@ -16,13 +13,13 @@ export const MathNode = ({ id, data }) => {
       width={200}
       height={110}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <label style={{ fontSize: '11px' }}>
+      <div className="flex flex-col gap-2">
+        <label className="text-xs">
           Operation:
           <select 
             value={operation} 
             onChange={(e) => setOperation(e.target.value)}
-            style={{ marginLeft: '6px', padding: '4px 6px', width: '90px' }}
+            className="ml-1.5 px-1.5 py-1 w-[90px] bg-dark-card text-text-secondary border border-dark-border rounded focus:outline-none focus:border-accent-blue cursor-pointer"
           >
             <option value="add">Add</option>
             <option value="subtract">Subtract</option>
